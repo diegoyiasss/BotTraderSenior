@@ -262,3 +262,196 @@
 2026-11-19 01:48:07,723 [WARNING] [XAUUSD] API Gemini saturada (None). Usando respaldo determinístico local.
 2026-11-19 01:48:07,724 [INFO] [XAUUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
 2026-11-19 01:48:07,724 [INFO] [XAUUSD] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:12:34,479 [INFO] Iniciando escaneo 15m para: EURUSD
+2026-11-19 02:12:34,528 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 02:12:34,534 [INFO] [EURUSD] @ 1.09664 | ATR(15m): 0.00030 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:12:34,534 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 02:12:35,559 [WARNING] [EURUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:12:38,546 [WARNING] [EURUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:12:42,550 [WARNING] [EURUSD] API Gemini no disponible (HTTP 429 (cuota/demanda)). Usando respaldo determinístico local.
+2026-11-19 02:12:42,552 [INFO] [EURUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 02:12:42,553 [INFO] [EURUSD] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:14:52,924 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 02:14:52,972 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 02:14:52,977 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 02:14:52,980 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 02:14:53,393 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 02:14:53,944 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 02:14:53,956 [INFO] [EURUSD] @ 1.09664 | ATR(15m): 0.00030 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:14:53,962 [INFO] [GBPUSD] @ 1.31390 | ATR(15m): 0.00036 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:14:53,968 [INFO] [USDJPY] @ 159.582 | ATR(15m): 0.048 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 02:14:53,968 [INFO] [XAUUSD] @ 3732.92 | ATR(15m): 9.03 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:14:53,976 [INFO] [NAS100] @ 27614.65 | ATR(15m): 62.71 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 02:14:53,977 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 02:14:54,944 [WARNING] [EURUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:14:57,549 [WARNING] [EURUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:01,550 [WARNING] [EURUSD] API Gemini no disponible (HTTP 429 (cuota/demanda)). Usando respaldo determinístico local.
+2026-11-19 02:15:01,550 [INFO] [EURUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 02:15:01,550 [INFO] [EURUSD] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:15:01,550 [INFO] [GBPUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 02:15:02,514 [WARNING] [GBPUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:25,884 [WARNING] [GBPUSD] API Gemini no disponible (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo determinístico local.
+2026-11-19 02:15:25,884 [INFO] [GBPUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 02:15:25,884 [INFO] [GBPUSD] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:15:25,885 [INFO] [USDJPY] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 02:15:26,811 [WARNING] [USDJPY] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:29,748 [WARNING] [USDJPY] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:33,749 [WARNING] [USDJPY] API Gemini no disponible (HTTP 429 (cuota/demanda)). Usando respaldo determinístico local.
+2026-11-19 02:15:33,749 [INFO] [USDJPY] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 02:15:33,749 [INFO] [USDJPY] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:15:33,749 [INFO] [XAUUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 02:15:38,554 [WARNING] [XAUUSD] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 02:15:41,476 [WARNING] [XAUUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:45,480 [WARNING] [XAUUSD] API Gemini no disponible (HTTP 429 (cuota/demanda)). Usando respaldo determinístico local.
+2026-11-19 02:15:45,481 [INFO] [XAUUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 02:15:45,482 [INFO] [XAUUSD] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:15:45,482 [INFO] [NAS100] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 02:15:46,084 [WARNING] [NAS100] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:49,016 [WARNING] [NAS100] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 02:15:53,016 [WARNING] [NAS100] API Gemini no disponible (HTTP 429 (cuota/demanda)). Usando respaldo determinístico local.
+2026-11-19 02:15:53,018 [INFO] [NAS100] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 02:15:53,018 [INFO] [NAS100] Semáforo ROJO omitido en Telegram (solo se envían: VERDE, AMARILLO).
+2026-11-19 02:19:58,975 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 02:19:59,026 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 02:19:59,030 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 02:19:59,037 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 02:19:59,042 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 02:19:59,048 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 02:19:59,059 [INFO] [EURUSD] @ 1.09738 | ATR(15m): 0.00033 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:19:59,066 [INFO] [GBPUSD] @ 1.31462 | ATR(15m): 0.00039 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:19:59,068 [INFO] [USDJPY] @ 159.584 | ATR(15m): 0.051 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 02:19:59,072 [INFO] [XAUUSD] @ 3734.16 | ATR(15m): 9.11 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:19:59,078 [INFO] [NAS100] @ 27587.52 | ATR(15m): 63.19 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 02:20:00,048 [INFO] Consultando gemini-3.8-flash en lote único para 5 activo(s)...
+2026-11-19 02:20:01,012 [WARNING] gemini-3.8-flash saturado (429), esperando respaldo...
+2026-11-19 02:20:04,016 [INFO] Consultando gemini-3.8-flash en lote único para 5 activo(s)...
+2026-11-19 02:20:04,636 [WARNING] gemini-3.8-flash saturado (429), esperando respaldo...
+2026-11-19 02:20:10,638 [INFO] Consultando gemini-2.5-flash en lote único para 5 activo(s)...
+2026-11-19 02:20:11,604 [INFO] Consultando gemini-2.5-flash-lite en lote único para 5 activo(s)...
+2026-11-19 02:20:12,598 [INFO] Consultando gemini-3.7-flash en lote único para 5 activo(s)...
+2026-11-19 02:20:13,551 [WARNING] gemini-3.7-flash saturado (429), esperando respaldo...
+2026-11-19 02:20:16,557 [INFO] Consultando gemini-3.7-flash en lote único para 5 activo(s)...
+2026-11-19 02:20:17,544 [WARNING] gemini-3.7-flash saturado (429), esperando respaldo...
+2026-11-19 02:20:23,545 [INFO] Consultando gemini-3.5-flash en lote único para 5 activo(s)...
+2026-11-19 02:20:49,926 [INFO] Consultando gemini-3.5-flash en lote único para 5 activo(s)...
+2026-11-19 02:21:16,300 [INFO] Consultando gemini-3.1-flash-lite en lote único para 5 activo(s)...
+2026-11-19 02:21:28,690 [INFO] Análisis batch recibido exitosamente desde gemini-3.1-flash-lite.
+2026-11-19 02:21:28,690 [ERROR] [EURUSD] Error validando/enviando señal: 'list' object has no attribute 'get'
+2026-11-19 02:21:28,690 [ERROR] [GBPUSD] Error validando/enviando señal: 'list' object has no attribute 'get'
+2026-11-19 02:21:28,690 [ERROR] [USDJPY] Error validando/enviando señal: 'list' object has no attribute 'get'
+2026-11-19 02:21:28,690 [ERROR] [XAUUSD] Error validando/enviando señal: 'list' object has no attribute 'get'
+2026-11-19 02:21:28,695 [ERROR] [NAS100] Error validando/enviando señal: 'list' object has no attribute 'get'
+2026-11-19 02:26:30,847 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 02:26:30,900 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 02:26:30,906 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 02:26:30,911 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 02:26:30,914 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 02:26:30,921 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 02:26:30,938 [INFO] [NAS100] @ 27587.52 | ATR(15m): 63.19 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 02:26:30,940 [INFO] [EURUSD] @ 1.09738 | ATR(15m): 0.00033 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:26:30,945 [INFO] [GBPUSD] @ 1.31462 | ATR(15m): 0.00039 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:26:30,950 [INFO] [XAUUSD] @ 3734.16 | ATR(15m): 9.11 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:26:30,954 [INFO] [USDJPY] @ 159.584 | ATR(15m): 0.051 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 02:26:31,891 [INFO] Consultando gemini-3.8-flash en lote único para 1 activo(s)...
+2026-11-19 02:26:32,448 [WARNING] gemini-3.8-flash saturado (429), esperando respaldo...
+2026-11-19 02:26:32,449 [INFO] Consultando gemini-3.1-flash-lite en lote único para 1 activo(s)...
+2026-11-19 02:26:35,272 [INFO] Análisis batch recibido exitosamente desde gemini-3.1-flash-lite.
+2026-11-19 02:26:35,273 [INFO] [USDJPY] Veredicto: AMARILLO (SHORT) | Filtros: 5/7
+2026-11-19 02:26:35,274 [ERROR] [USDJPY] Error validando/enviando señal: No connection adapters were found for '[https://api.telegram.org/bot](https://api.telegram.org/bot)9181282479:AAGvEB8qh0Sg9hbgT0nSiQ8Aj_2NJLmmNQI/sendMessage'
+2026-11-19 02:28:22,296 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 02:28:22,356 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 02:28:22,368 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 02:28:22,373 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 02:28:22,380 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 02:28:22,386 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 02:28:22,398 [INFO] [EURUSD] @ 1.09738 | ATR(15m): 0.00033 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:28:22,404 [INFO] [USDJPY] @ 159.584 | ATR(15m): 0.051 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 02:28:22,412 [INFO] [XAUUSD] @ 3734.16 | ATR(15m): 9.11 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:28:22,415 [INFO] [GBPUSD] @ 1.31462 | ATR(15m): 0.00039 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 02:28:22,420 [INFO] [NAS100] @ 27587.52 | ATR(15m): 63.19 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 02:28:23,363 [INFO] Consultando gemini-3.8-flash en lote único para 1 activo(s)...
+2026-11-19 02:28:24,312 [WARNING] gemini-3.8-flash saturado (429), esperando respaldo...
+2026-11-19 02:28:24,312 [INFO] Consultando gemini-3.1-flash-lite en lote único para 1 activo(s)...
+2026-11-19 02:28:27,228 [INFO] Análisis batch recibido exitosamente desde gemini-3.1-flash-lite.
+2026-11-19 02:28:27,229 [INFO] [USDJPY] Veredicto: AMARILLO (SHORT) | Filtros: 5/7
+2026-11-19 02:28:28,144 [INFO] [USDJPY] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 02:28:30,514 [INFO] [USDJPY] Gráfico enviado a Telegram.
+2026-11-19 10:03:42,603 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 10:03:42,658 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 10:03:42,670 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 10:03:42,688 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 10:03:42,712 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 10:03:42,731 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 10:03:42,737 [INFO] [EURUSD] @ 1.09926 | ATR(15m): 0.00063 | Sesión: Transición entre sesiones | Zona 4H: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 10:03:42,742 [INFO] [XAUUSD] @ 3734.36 | ATR(15m): 8.60 | Sesión: London Killzone | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 10:03:42,744 [INFO] [GBPUSD] @ 1.31402 | ATR(15m): 0.00085 | Sesión: Transición entre sesiones | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 10:03:42,746 [INFO] [NAS100] @ 27611.90 | ATR(15m): 59.84 | Sesión: London Killzone | Zona 4H: PREMIUM | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 10:03:42,749 [INFO] [USDJPY] @ 159.881 | ATR(15m): 0.062 | Sesión: Transición entre sesiones | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 10:03:42,749 [INFO] Ciclo completado: ningún activo cumple condiciones de Killzone + Prima/Descuento + Sweep/IFVG. (0 llamadas a Gemini).
+2026-11-19 10:06:32,528 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 10:06:32,581 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 10:06:32,589 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 10:06:32,595 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 10:06:32,620 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 10:06:32,637 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 10:06:32,649 [INFO] [EURUSD] @ 1.09926 | ATR(15m): 0.00063 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 10:06:32,656 [INFO] [XAUUSD] @ 3708.77 | ATR(15m): 8.98 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: SSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 10:06:32,660 [INFO] [USDJPY] @ 159.881 | ATR(15m): 0.062 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 10:06:32,666 [INFO] [NAS100] @ 27595.46 | ATR(15m): 78.91 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: IFVG_BAJISTA
+2026-11-19 10:06:32,670 [INFO] [GBPUSD] @ 1.31402 | ATR(15m): 0.00085 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 10:06:33,280 [INFO] Consultando gemini-3.8-flash en lote único para 2 activo(s)...
+2026-11-19 10:06:59,698 [INFO] Consultando gemini-3.1-flash-lite en lote único para 2 activo(s)...
+2026-11-19 10:07:13,552 [INFO] Análisis batch recibido exitosamente desde gemini-3.1-flash-lite.
+2026-11-19 10:07:13,552 [INFO] [USDJPY] Veredicto: AMARILLO (SHORT) | Filtros: 5/7
+2026-11-19 10:07:14,465 [INFO] [USDJPY] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 10:07:16,997 [INFO] [USDJPY] Gráfico enviado a Telegram.
+2026-11-19 10:07:16,999 [INFO] [NAS100] Veredicto: VERDE (SHORT) | Filtros: 7/7
+2026-11-19 10:07:18,841 [INFO] [NAS100] Reporte enviado a Telegram (VERDE).
+2026-11-19 10:07:20,951 [INFO] [NAS100] Gráfico enviado a Telegram.
+2026-11-19 10:24:48,887 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 10:24:49,080 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 10:24:49,086 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 10:24:49,093 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 10:24:49,099 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 10:24:49,105 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 10:24:49,123 [INFO] [EURUSD] @ 1.09840 | ATR(15m): 0.00066 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: None | IFVG: IFVG_BAJISTA
+2026-11-19 10:24:49,135 [INFO] [GBPUSD] @ 1.31240 | ATR(15m): 0.00089 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 10:24:49,140 [INFO] [USDJPY] @ 159.921 | ATR(15m): 0.062 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 10:24:49,149 [INFO] [XAUUSD] @ 3702.83 | ATR(15m): 9.16 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: SSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 10:24:49,154 [INFO] [NAS100] @ 27480.88 | ATR(15m): 89.76 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 10:24:50,578 [INFO] Consultando gemini-3.8-flash en lote único para 2 activo(s)...
+2026-11-19 10:25:17,384 [INFO] Consultando gemini-3.1-flash-lite en lote único para 2 activo(s)...
+2026-11-19 10:25:44,197 [INFO] Consultando gemma-4-31b-it en lote único para 2 activo(s)...
+2026-11-19 10:25:45,770 [WARNING] gemma-4-31b-it saturado (503), esperando respaldo...
+2026-11-19 10:25:45,771 [INFO] Consultando gemini-3.5-flash en lote único para 2 activo(s)...
+2026-11-19 10:26:12,565 [WARNING] API Gemini no disponible (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=25)). Usando respaldo determinístico local.
+2026-11-19 10:26:12,565 [INFO] [USDJPY] Veredicto: AMARILLO (SHORT) | Filtros: 4/7
+2026-11-19 10:26:13,953 [INFO] [USDJPY] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 10:26:17,141 [INFO] [USDJPY] Gráfico enviado a Telegram.
+2026-11-19 10:26:17,146 [INFO] [NAS100] Veredicto: AMARILLO (SHORT) | Filtros: 4/7
+2026-11-19 10:26:18,485 [INFO] [NAS100] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 10:26:45,536 [ERROR] [NAS100] Error validando/enviando señal: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=25)
+2026-11-19 10:31:02,174 [INFO] Iniciando escaneo 15m para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 10:31:02,222 [INFO] [EURUSD] Velas 15m/1H/4H cargadas desde MT5 (EURUSD).
+2026-11-19 10:31:02,233 [INFO] [GBPUSD] Velas 15m/1H/4H cargadas desde MT5 (GBPUSD).
+2026-11-19 10:31:02,240 [INFO] [USDJPY] Velas 15m/1H/4H cargadas desde MT5 (USDJPY).
+2026-11-19 10:31:02,245 [INFO] [XAUUSD] Velas 15m/1H/4H cargadas desde MT5 (GOLD#).
+2026-11-19 10:31:02,253 [INFO] [NAS100] Velas 15m/1H/4H cargadas desde MT5 (US100Cash#).
+2026-11-19 10:31:02,263 [INFO] [GBPUSD] @ 1.31133 | ATR(15m): 0.00097 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: SSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 10:31:02,263 [INFO] [EURUSD] @ 1.09796 | ATR(15m): 0.00070 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 10:31:02,270 [INFO] [XAUUSD] @ 3687.15 | ATR(15m): 9.73 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: DISCOUNT | Sweep: SSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 10:31:02,276 [INFO] [NAS100] @ 27261.18 | ATR(15m): 102.79 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 10:31:02,280 [INFO] [USDJPY] @ 159.825 | ATR(15m): 0.067 | Sesión: New York Killzone (incl. 8:30 AM News) | Zona 4H: PREMIUM | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 10:31:02,836 [INFO] Consultando gemini-3.8-flash en lote único para 2 activo(s)...
+2026-11-19 10:31:05,599 [WARNING] gemini-3.8-flash saturado (503), esperando respaldo...
+2026-11-19 10:31:05,599 [INFO] Consultando gemini-3.1-flash-lite en lote único para 2 activo(s)...
+2026-11-19 10:31:10,880 [WARNING] gemini-3.1-flash-lite saturado (503), esperando respaldo...
+2026-11-19 10:31:10,880 [INFO] Consultando gemma-4-31b-it en lote único para 2 activo(s)...
+2026-11-19 10:31:37,699 [INFO] Consultando gemini-3.5-flash en lote único para 2 activo(s)...
+2026-11-19 10:32:04,515 [WARNING] API Gemini no disponible (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=25)). Usando respaldo determinístico local.
+2026-11-19 10:32:04,515 [INFO] [NAS100] Veredicto: AMARILLO (SHORT) | Filtros: 4/7
+2026-11-19 10:32:05,885 [INFO] [NAS100] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 10:32:24,604 [INFO] [NAS100] Gráfico enviado a Telegram.
+2026-11-19 10:32:24,610 [INFO] [USDJPY] Veredicto: AMARILLO (SHORT) | Filtros: 4/7
+2026-11-19 10:32:25,938 [INFO] [USDJPY] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 10:32:30,187 [INFO] [USDJPY] Gráfico enviado a Telegram.

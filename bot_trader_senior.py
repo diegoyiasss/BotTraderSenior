@@ -49,13 +49,12 @@ ACTIVE_SYMBOLS = [
     if s.strip()
 ]
 
-# Parámetros técnicos por activo para 15m (min_sl_pips evita stops ridículos por ruido)
 ASSETS_CATALOG = {
-    "EURUSD": {"yf": "EURUSD=X", "mt5": "EURUSD", "pip": 0.0001, "decimals": 5, "buffer_pips": 3.0,  "min_sl_pips": 8.0},
-    "GBPUSD": {"yf": "GBPUSD=X", "mt5": "GBPUSD", "pip": 0.0001, "decimals": 5, "buffer_pips": 3.5,  "min_sl_pips": 10.0},
-    "USDJPY": {"yf": "USDJPY=X", "mt5": "USDJPY", "pip": 0.01,   "decimals": 3, "buffer_pips": 3.5,  "min_sl_pips": 10.0},
-    "XAUUSD": {"yf": "GC=F",     "mt5": "XAUUSD", "pip": 0.1,    "decimals": 2, "buffer_pips": 25.0, "min_sl_pips": 50.0},
-    "NAS100": {"yf": "NQ=F",     "mt5": "NAS100", "pip": 1.0,    "decimals": 2, "buffer_pips": 15.0, "min_sl_pips": 30.0},
+    "EURUSD": {"yf": "EURUSD=X", "mt5": "EURUSD", "pip": 0.0001, "decimals": 5, "buffer_pips": 6.0,  "min_sl_pips": 18.0},
+    "GBPUSD": {"yf": "GBPUSD=X", "mt5": "GBPUSD", "pip": 0.0001, "decimals": 5, "buffer_pips": 7.0,  "min_sl_pips": 20.0},
+    "USDJPY": {"yf": "USDJPY=X", "mt5": "USDJPY", "pip": 0.01,   "decimals": 3, "buffer_pips": 7.0,  "min_sl_pips": 20.0},
+    "XAUUSD": {"yf": "GC=F",     "mt5": "XAUUSD", "pip": 0.1,    "decimals": 2, "buffer_pips": 45.0, "min_sl_pips": 90.0},
+    "NAS100": {"yf": "NQ=F",     "mt5": "NAS100", "pip": 1.0,    "decimals": 2, "buffer_pips": 25.0, "min_sl_pips": 50.0},
 }
 
 NY_TZ = ZoneInfo("America/New_York")
@@ -64,50 +63,52 @@ STATE_LOCK = threading.Lock()
 GEMINI_MODEL = "gemini-3.8-flash"
 
 # ==============================================================================
-# 2. SYSTEM PROMPT: PROTOCOLO TRADER-SENIOR EN 15M (HTF 1H / 4H)
+# 2. SYSTEM PROMPT BATCH: PROTOCOLO TRADER-SENIOR EN 15M (HTF 1H / 4H)
 # ==============================================================================
 TRADER_SENIOR_PROMPT = """
 Eres un Trader Institucional Senior y Analista Técnico Jefe (>15 años de experiencia).
-Aplicas estrictamente el Manual Operativo Institucional (Arjo + DodgysDD + TTrades) en temporalidad operativa de 15m (con contexto HTF en 1H y 4H):
+Aplicas estrictamente el Manual Operativo Institucional (Arjo + DodgysDD + TTrades) en temporalidad operativa de 15m (con contexto HTF en 1H y 4H).
 
-CHECKLIST SECUENCIAL DE 7 FILTROS OBLIGATORIOS:
+CHECKLIST SECUENCIAL DE 7 FILTROS OBLIGATORIOS POR CADA ACTIVO:
 1. Draw on Liquidity (DOL): Objetivo claro en 1H/4H (Tier S: EQH/EQL >3 velas o Data Wicks 8:30 AM NY; Tier A: Trendline >=3 toques o EQH/EQL cortos; Tier B: FVG viejos o NWOG/NDOG).
 2. Filtro de Rango (Prima vs. Descuento): Compras SOLO en Descuento (<50% rango 4H); Ventas SOLO en Prima (>50% rango 4H).
 3. Respeto de Zona HTF (1H/4H): Interacción con PD Array HTF sin cierre de cuerpo por fuera.
 4. Validación del Sweep (Prueba de Arjo): Perforación mayoritaria con mecha y cierre dentro del rango, SIN ningún FVG solapado sobre el nivel tomado. Si existe FVG solapado es un LIQUIDITY RUN -> semáforo ROJO (prohibido revertir).
-5. Derrota de la Matriz Impulsora: El OB/FVG previo que impulsó el barrido debe fallar y ser quebrado (salir de Zona Roja hacia Zona Verde).
+5. Derrota de la Matriz Impulsora: El OB/FVG previo que impulsó el barrido debe fallar y ser quebrado.
 6. Confirmación del IFVG (TTrades/DodgysDD): Vela de desplazamiento de 15m con cuerpo sólido cerrando al otro lado de un FVG previo singular y evidente.
-7. Parámetros de Riesgo: SL estructural detrás de la mecha del barrido o swing real respetando la volatilidad (ATR); R:R objetivo 1:1.5 a 1:2; Break Even mecánico siempre a favor del trade (mínimo 1:1 o swing interno superado).
+7. Parámetros de Riesgo: SL estructural detrás de la mecha del barrido o swing real respetando ATR; R:R objetivo 1:1.5 a 1:2; Break Even mecánico siempre a favor del trade.
 
 REGLAS DE RESPUESTA:
-- Redacta en español claro, directo y profesional (sin códigos técnicos crudos como BSL_LIQUIDITY_RUN ni SIBI/BISI sin explicar).
-- Si NO se cumplen los 7 filtros, responde AMARILLO (si hay Sweep válido o IFVG en formación con potencial) o ROJO (si es rango muerto, tierra de nadie o Liquidity Run).
-- IMPORTANTE: Si el semáforo es VERDE o AMARILLO, NUNCA devuelvas 0.0 en precio_entrada, stop_loss, tp1 ni tp2; usa los niveles exactos de candidate_setup.
-- Devuelve EXCLUSIVAMENTE un JSON válido con esta estructura exacta:
+- Redacta en español claro y profesional (sin códigos crudos como BSL_LIQUIDITY_RUN ni SIBI/BISI sin explicar).
+- Responde AMARILLO si hay Sweep válido o IFVG en formación alineado con Prima/Descuento; VERDE solo si cumple los 7 filtros; ROJO en cualquier otro caso.
+- Si el semáforo es VERDE o AMARILLO, NUNCA devuelvas 0.0 en precio_entrada, stop_loss, tp1 ni tp2; usa los niveles exactos de candidate_setup.
+- Recibirás uno o varios activos en un solo lote. Devuelve EXCLUSIVAMENTE un objeto JSON válido donde cada clave sea el símbolo del activo (ej. "EURUSD", "NAS100") y su valor tenga esta estructura exacta:
 {
-  "semaforo": "VERDE" | "AMARILLO" | "ROJO",
-  "direccion": "LONG" | "SHORT" | "NEUTRO",
-  "checklist_cumplidos": 0,
-  "resumen_ejecutivo": "Máximo 2 líneas claras explicando qué hace el precio y qué acción tomar.",
-  "contexto_estructura": "Sesión, Prima/Descuento en 4H, estructura 1H y lectura de las últimas velas de 15m.",
-  "mapa_liquidez": "Explicación clara en español del DOL, si hubo Barrido válido o Ruptura (Run), y estado del IFVG.",
-  "plan_trading": "Escenario principal paso a paso y qué vela exacta esperar para entrar.",
-  "modalidad_entrada": "Modalidad A (Al cierre)" | "Modalidad B (Retesteo 50% IFVG)" | "Proyectada (esperando confirmación)" | "NINGUNA",
-  "precio_entrada": 0.0,
-  "ifvg_alto": 0.0,
-  "ifvg_bajo": 0.0,
-  "ce_50": 0.0,
-  "stop_loss": 0.0,
-  "be_trigger": 0.0,
-  "tp1": 0.0,
-  "tp2": 0.0,
-  "rr_estimado": "1:1.5 - 1:2.0",
-  "nivel_barrido": 0.0,
-  "mecha_barrido": 0.0,
-  "tipo_barrido": "SSL_SWEEP" | "BSL_SWEEP" | "NINGUNO",
-  "dol_objetivo_precio": 0.0,
-  "dol_etiqueta": "Ej. Máximos iguales 1H",
-  "invalidacion_temprana": "Nivel exacto de cierre de vela de 15m que invalida la idea."
+  "SYMBOL": {
+    "semaforo": "VERDE" | "AMARILLO" | "ROJO",
+    "direccion": "LONG" | "SHORT" | "NEUTRO",
+    "checklist_cumplidos": 0,
+    "resumen_ejecutivo": "Máximo 2 líneas claras explicando qué hace el precio y qué acción tomar.",
+    "contexto_estructura": "Sesión, Prima/Descuento en 4H, estructura 1H y lectura de las últimas velas de 15m.",
+    "mapa_liquidez": "Explicación clara en español del DOL, si hubo Barrido válido o Ruptura (Run), y estado del IFVG.",
+    "plan_trading": "Escenario principal paso a paso y qué vela exacta esperar para entrar.",
+    "modalidad_entrada": "Modalidad A (Al cierre)" | "Modalidad B (Retesteo 50% IFVG)" | "Proyectada (esperando confirmación)" | "NINGUNA",
+    "precio_entrada": 0.0,
+    "ifvg_alto": 0.0,
+    "ifvg_bajo": 0.0,
+    "ce_50": 0.0,
+    "stop_loss": 0.0,
+    "be_trigger": 0.0,
+    "tp1": 0.0,
+    "tp2": 0.0,
+    "rr_estimado": "1:1.5 - 1:2.0",
+    "nivel_barrido": 0.0,
+    "mecha_barrido": 0.0,
+    "tipo_barrido": "SSL_SWEEP" | "BSL_SWEEP" | "NINGUNO",
+    "dol_objetivo_precio": 0.0,
+    "dol_etiqueta": "Ej. Máximos iguales 1H",
+    "invalidacion_temprana": "Nivel exacto de cierre de vela de 15m que invalida la idea."
+  }
 }
 """
 
@@ -153,21 +154,28 @@ def fetch_all_mt5(symbols_list: list[str]) -> dict:
                 continue
             base_name = cfg["mt5"]
             aliases = [base_name]
+            prefixes = (base_name,)
             if sym == "XAUUSD":
-                aliases += ["GOLD", "XAUUSDm", "XAUUSD#"]
+                aliases += ["GOLD", "GOLDm", "GOLD#", "XAUUSDm", "XAUUSD#", "XAUUSD."]
+                prefixes = ("XAUUSD", "GOLD")
             elif sym == "NAS100":
-                aliases += ["USTEC", "USTECm", "US100", "NAS100m", "NDX"]
+                aliases += ["USTEC", "USTECm", "USTEC#", "US100", "US100m", "US100#", "NAS100m", "NAS100#", "NDX", "US100Cash", "US100Cash#"]
+                prefixes = ("NAS100", "US100", "USTEC")
             else:
                 aliases += [f"{base_name}m", f"{base_name}#", f"{base_name}."]
 
             matched = next((a for a in aliases if a in available_names), None)
             if not matched:
-                matched = next((n for n in available_names if n.startswith(base_name)), None)
+                matched = next((n for n in available_names if n.startswith(prefixes)), None)
             if not matched:
                 log.warning("[%s] Símbolo no encontrado en Observación del Mercado de MT5.", sym)
                 continue
 
             mt5.symbol_select(matched, True)
+            tick = mt5.symbol_info_tick(matched)
+            now_utc = pd.Timestamp.now("UTC").timestamp()
+            raw_diff = (tick.time - now_utc) if (tick and tick.time > 0) else 7200
+            srv_offset = round(raw_diff / 1800) * 1800 if abs(raw_diff) <= 14 * 3600 else 7200
             data_tfs = {}
             for tf_str, tf_const, bars in [
                 ("15m", mt5.TIMEFRAME_M15, 250),
@@ -178,12 +186,9 @@ def fetch_all_mt5(symbols_list: list[str]) -> dict:
                 if rates is None or len(rates) == 0:
                     raise RuntimeError(f"Sin velas MT5 para {matched} ({tf_str})")
                 df = pd.DataFrame(rates)
-                df["time"] = pd.to_datetime(df["time"], unit="s", utc=True).dt.tz_convert(NY_TZ)
-                df.set_index("time", inplace=True)
-                df.rename(
-                    columns={"open": "Open", "high": "High", "low": "Low", "close": "Close"},
-                    inplace=True,
-                )
+                df["time"] = pd.to_datetime(df["time"] - srv_offset, unit="s", utc=True).dt.tz_convert(NY_TZ)
+                df = df.set_index("time")
+                df = df.rename(columns={"open": "Open", "high": "High", "low": "Low", "close": "Close"})
                 data_tfs[tf_str] = df[["Open", "High", "Low", "Close"]].dropna().iloc[:-1]
 
             results[sym] = (data_tfs["15m"], data_tfs["1h"], data_tfs["4h"])
@@ -202,7 +207,7 @@ def load_market_data_fallback(asset_cfg: dict) -> tuple[pd.DataFrame, pd.DataFra
 
 
 # ==============================================================================
-# 4. MOTOR DETERMINÍSTICO INSTITUCIONAL (15M + ATR + SWINGS REALES)
+# 4. MOTOR DETERMINÍSTICO INSTITUCIONAL (15M + ATR + PRIMA/DESCUENTO ESTRICTO)
 # ==============================================================================
 def get_session_status(ts_ny: datetime) -> dict:
     hour = ts_ny.hour + ts_ny.minute / 60.0
@@ -337,7 +342,6 @@ def build_risk_params(
     asset_cfg: dict,
     complete: bool,
 ) -> dict:
-    """Calcula SL, BE, TP1 y TP2 con respiración real basada en ATR y estructura."""
     pip = asset_cfg["pip"]
     dec = asset_cfg["decimals"]
     buf = max(asset_cfg["buffer_pips"] * pip, 0.35 * atr)
@@ -347,7 +351,6 @@ def build_risk_params(
         raw_sl = structural_extreme - buf
         risk = max(entry - raw_sl, min_risk)
         sl = round(entry - risk, dec)
-        # BE siempre estrictamente por encima de la entrada (mínimo 1:1)
         min_be = round(entry + 1.0 * risk, dec)
         be_trigger = round(internal_swing, dec) if (internal_swing and internal_swing >= min_be) else min_be
         return {
@@ -365,7 +368,6 @@ def build_risk_params(
         raw_sl = structural_extreme + buf
         risk = max(raw_sl - entry, min_risk)
         sl = round(entry + risk, dec)
-        # BE siempre estrictamente por debajo de la entrada (mínimo 1:1)
         max_be = round(entry - 1.0 * risk, dec)
         be_trigger = round(internal_swing, dec) if (internal_swing and internal_swing <= max_be) else max_be
         return {
@@ -398,7 +400,6 @@ def analyze_institutional_structure(
 
     session_info = get_session_status(last_time)
 
-    # Rango HTF en 4H (últimas 18 velas = ~3 días de liquidez institucional)
     recent_4h = df_4h.tail(18)
     range_high = round(float(recent_4h["High"].max()), decimals)
     range_low = round(float(recent_4h["Low"].min()), decimals)
@@ -407,7 +408,6 @@ def analyze_institutional_structure(
 
     dol = find_dol_targets(df_1h.tail(80), df_15m.tail(160), current_price, pip_size, decimals)
 
-    # Ventana ampliada de 80 velas de 15m (~20 horas)
     recent_15m = df_15m.tail(80).copy()
     fvgs_15m = detect_fvgs(recent_15m, pip_size, decimals)
     sh_15m, sl_15m = find_swings(recent_15m.iloc[:-6], decimals, left=3, right=3)
@@ -481,45 +481,41 @@ def analyze_institutional_structure(
             }
             break
 
-    # Construcción de niveles de riesgo con respiración estructural + ATR
     candidate_setup = None
     recent_swing_low = float(recent_15m.iloc[-12:]["Low"].min())
     recent_swing_high = float(recent_15m.iloc[-12:]["High"].max())
+    allow_long = (zone == "DISCOUNT")
+    allow_short = (zone == "PREMIUM")
 
-    # Caso 1: Setup completo (Sweep válido + IFVG confirmado)
     if ifvg_confirmed and sweep_detected and "SWEEP" in sweep_detected["side"]:
-        if ifvg_confirmed["type"] == "IFVG_ALCISTA" and sweep_detected["side"] == "SSL_SWEEP":
+        if allow_long and ifvg_confirmed["type"] == "IFVG_ALCISTA" and sweep_detected["side"] == "SSL_SWEEP":
             candidate_setup = build_risk_params(
                 "LONG", ifvg_confirmed["ce_50"], sweep_detected["extreme_wick"],
                 ifvg_confirmed["internal_be_swing"], atr_15m, asset_cfg, complete=True,
             )
-        elif ifvg_confirmed["type"] == "IFVG_BAJISTA" and sweep_detected["side"] == "BSL_SWEEP":
+        elif allow_short and ifvg_confirmed["type"] == "IFVG_BAJISTA" and sweep_detected["side"] == "BSL_SWEEP":
             candidate_setup = build_risk_params(
                 "SHORT", ifvg_confirmed["ce_50"], sweep_detected["extreme_wick"],
                 ifvg_confirmed["internal_be_swing"], atr_15m, asset_cfg, complete=True,
             )
-
-    # Caso 2: Proyección AMARILLO (Sweep válido detectado, esperando IFVG)
     elif sweep_detected and "SWEEP" in sweep_detected["side"]:
-        if sweep_detected["side"] == "SSL_SWEEP":
+        if allow_long and sweep_detected["side"] == "SSL_SWEEP":
             candidate_setup = build_risk_params(
                 "LONG", current_price, sweep_detected["extreme_wick"],
                 None, atr_15m, asset_cfg, complete=False,
             )
-        elif sweep_detected["side"] == "BSL_SWEEP":
+        elif allow_short and sweep_detected["side"] == "BSL_SWEEP":
             candidate_setup = build_risk_params(
                 "SHORT", current_price, sweep_detected["extreme_wick"],
                 None, atr_15m, asset_cfg, complete=False,
             )
-
-    # Caso 3: Proyección AMARILLO (IFVG confirmado sin Sweep reciente, usando swing real de 12 velas)
     elif ifvg_confirmed:
-        if ifvg_confirmed["type"] == "IFVG_ALCISTA":
+        if allow_long and ifvg_confirmed["type"] == "IFVG_ALCISTA":
             candidate_setup = build_risk_params(
                 "LONG", ifvg_confirmed["ce_50"], min(ifvg_confirmed["bottom"], recent_swing_low),
                 ifvg_confirmed["internal_be_swing"], atr_15m, asset_cfg, complete=False,
             )
-        else:
+        elif allow_short and ifvg_confirmed["type"] == "IFVG_BAJISTA":
             candidate_setup = build_risk_params(
                 "SHORT", ifvg_confirmed["ce_50"], max(ifvg_confirmed["top"], recent_swing_high),
                 ifvg_confirmed["internal_be_swing"], atr_15m, asset_cfg, complete=False,
@@ -547,67 +543,31 @@ def analyze_institutional_structure(
 
 
 # ==============================================================================
-# 5. VALIDACIÓN CON GEMINI (40 VELAS 15M + 20 VELAS 1H + RESPALDO CLARO)
+# 5. VALIDACIÓN BATCH (1 SOLA LLAMADA PARA TODOS LOS ACTIVOS + AUTODETECCIÓN)
 # ==============================================================================
-def validate_with_gemini(df_15m: pd.DataFrame, df_1h: pd.DataFrame, analysis: dict) -> dict:
-    dec = analysis["decimals"]
-    candles_15m_str = df_15m.tail(40).round(dec).to_string()
-    candles_1h_str = df_1h.tail(20).round(dec).to_string()
+def get_available_models() -> list[str]:
+    """Consulta los modelos habilitados en la API Key para evitar errores 404."""
+    preferred = [GEMINI_MODEL, "gemini-3.1-flash-lite", "gemma-4-31b-it", "gemini-3.5-flash"]
+    try:
+        r = requests.get(
+            f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}",
+            timeout=10,
+        )
+        if r.ok:
+            avail = {
+                m["name"].replace("models/", "")
+                for m in r.json().get("models", [])
+                if "generateContent" in m.get("supportedGenerationMethods", [])
+            }
+            ordered = [m for m in preferred if m in avail]
+            if ordered:
+                return ordered
+    except Exception:
+        pass
+    return [GEMINI_MODEL]
 
-    user_prompt = (
-        "Analiza los siguientes datos exactos de mercado en temporalidad 15m (con contexto 1H/4H) "
-        "y aplica el checklist secuencial de 7 filtros:\n\n"
-        "=== RESUMEN DETERMINISTICO PRE-CALCULADO ===\n"
-        + json.dumps(analysis, indent=2, ensure_ascii=False)
-        + "\n\n=== ULTIMAS 20 VELAS HTF (1H - Hora NY) ===\n"
-        + candles_1h_str
-        + "\n\n=== ULTIMAS 40 VELAS OPERATIVAS (15m - Hora NY) ===\n"
-        + candles_15m_str
-        + "\n\nEmite tu veredicto institucional estrictamente en el formato JSON solicitado."
-    )
 
-    models_to_try = [GEMINI_MODEL, "gemini-3.8-flash-lite", "gemini-3.8-pro"]
-    last_error = None
-
-    for model_name in models_to_try:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
-        payload = {
-            "systemInstruction": {"parts": [{"text": TRADER_SENIOR_PROMPT}]},
-            "contents": [{"parts": [{"text": user_prompt}]}],
-            "generationConfig": {
-                "responseMimeType": "application/json",
-                "temperature": 0.1,
-                "thinkingConfig": {"thinkingBudget": 0},
-            },
-        }
-
-        for attempt in range(2):
-            try:
-                resp = requests.post(url, json=payload, timeout=20)
-                if resp.status_code == 400 and "thinkingConfig" in resp.text:
-                    payload["generationConfig"].pop("thinkingConfig", None)
-                    resp = requests.post(url, json=payload, timeout=20)
-
-                if resp.status_code in (429, 503):
-                    log.warning("[%s] %s saturado (%s), reintentando...", analysis["symbol"], model_name, resp.status_code)
-                    time.sleep(2 * (attempt + 1))
-                    continue
-
-                if resp.status_code == 404:
-                    break
-
-                if not resp.ok:
-                    raise RuntimeError(f"Error Gemini {resp.status_code}: {resp.text}")
-
-                data = resp.json()
-                text = data["candidates"][0]["content"]["parts"][0]["text"]
-                return json.loads(text)
-            except Exception as exc:
-                last_error = exc
-                time.sleep(1)
-
-    # Respaldo determinístico local con redacción clara en español
-    log.warning("[%s] API Gemini saturada (%s). Usando respaldo determinístico local.", analysis["symbol"], last_error)
+def build_local_verdict(analysis: dict, reason: str = "Análisis determinístico local") -> dict:
     cand = analysis.get("candidate_setup") or {}
     ifvg = analysis.get("ifvg_confirmed") or {}
     sweep = analysis.get("sweep_analysis_arjo") or {}
@@ -617,7 +577,11 @@ def validate_with_gemini(df_15m: pd.DataFrame, df_1h: pd.DataFrame, analysis: di
     is_yellow = (not is_green) and bool(cand) and (is_valid_sweep or bool(ifvg))
     semaforo = "VERDE" if is_green else ("AMARILLO" if is_yellow else "ROJO")
 
-    zona_es = "DESCUENTO (zona de compras)" if analysis["htf_dealing_range_4h"]["current_zone"] == "DISCOUNT" else "PRIMA (zona de ventas)"
+    zona_es = (
+        "DESCUENTO (zona de compras)"
+        if analysis["htf_dealing_range_4h"]["current_zone"] == "DISCOUNT"
+        else "PRIMA (zona de ventas)"
+    )
     sweep_map = {
         "SSL_SWEEP": f"Barrido válido de mínimos en {sweep.get('swept_level')}",
         "BSL_SWEEP": f"Barrido válido de máximos en {sweep.get('swept_level')}",
@@ -626,19 +590,23 @@ def validate_with_gemini(df_15m: pd.DataFrame, df_1h: pd.DataFrame, analysis: di
     }
     sweep_desc = sweep_map.get(sweep.get("side", ""), "Sin barrido de liquidez reciente")
     ifvg_desc = (
-        f"IFVG Alcista confirmado ({ifvg.get('bottom')} - {ifvg.get('top')})" if ifvg.get("type") == "IFVG_ALCISTA"
-        else (f"IFVG Bajista confirmado ({ifvg.get('bottom')} - {ifvg.get('top')})" if ifvg.get("type") == "IFVG_BAJISTA"
-              else "Aún sin IFVG confirmado")
+        f"IFVG Alcista confirmado ({ifvg.get('bottom')} - {ifvg.get('top')})"
+        if ifvg.get("type") == "IFVG_ALCISTA"
+        else (
+            f"IFVG Bajista confirmado ({ifvg.get('bottom')} - {ifvg.get('top')})"
+            if ifvg.get("type") == "IFVG_BAJISTA"
+            else "Aún sin IFVG confirmado"
+        )
     )
 
     if is_green:
-        plan_txt = "Estructura completa en 15m (Barrido + IFVG). Evaluar entrada límite en el 50% del IFVG con SL estructural."
+        plan_txt = "Estructura completa en 15m (Barrido + IFVG alineados con rango 4H). Evaluar entrada límite en el 50% del IFVG con SL estructural."
     elif is_yellow and is_valid_sweep:
-        plan_txt = "Barrido de liquidez detectado. Esperar cierre de vela de 15m que invierta un FVG contrario para confirmar entrada."
+        plan_txt = "Barrido de liquidez detectado en zona óptima. Esperar cierre de vela de 15m que invierta un FVG contrario para confirmar entrada."
     elif is_yellow and ifvg:
-        plan_txt = "IFVG formado en 15m, pero sin barrido limpio previo en la ventana reciente. Esperar retroceso al 50% y validar contexto en TradingView."
+        plan_txt = "IFVG formado en zona óptima 4H, pero sin barrido limpio previo en la ventana reciente. Esperar retroceso al 50% y validar en TradingView."
     else:
-        plan_txt = "Sin condiciones institucionales limpias. Mantenerse fuera del mercado."
+        plan_txt = "Sin alineación institucional completa (fuera de zona Prima/Descuento o sin barrido válido). Mantenerse fuera."
 
     dol_lvl = 0.0
     if cand.get("direction") == "LONG" and analysis["dol_targets"]["bsl_eqh"]:
@@ -650,7 +618,7 @@ def validate_with_gemini(df_15m: pd.DataFrame, df_1h: pd.DataFrame, analysis: di
         "semaforo": semaforo,
         "direccion": cand.get("direction", "NEUTRO") if semaforo != "ROJO" else "NEUTRO",
         "checklist_cumplidos": 7 if is_green else (4 if is_yellow else 1),
-        "resumen_ejecutivo": f"Precio en {zona_es} durante {analysis['session']['session']}. Volatilidad ATR(15m): {analysis['atr_15m']}.",
+        "resumen_ejecutivo": f"{reason}: Precio en {zona_es} durante {analysis['session']['session']}. ATR(15m): {analysis['atr_15m']}.",
         "contexto_estructura": (
             f"Rango HTF 4H: {analysis['htf_dealing_range_4h']['low']} a "
             f"{analysis['htf_dealing_range_4h']['high']} (Equilibrio 50%: {analysis['htf_dealing_range_4h']['equilibrium_50']})."
@@ -658,7 +626,8 @@ def validate_with_gemini(df_15m: pd.DataFrame, df_1h: pd.DataFrame, analysis: di
         "mapa_liquidez": f"{sweep_desc}. {ifvg_desc}.",
         "plan_trading": plan_txt,
         "modalidad_entrada": (
-            "Modalidad B (Retesteo 50% IFVG)" if is_green
+            "Modalidad B (Retesteo 50% IFVG)"
+            if is_green
             else ("Proyectada (esperando confirmación)" if is_yellow else "NINGUNA")
         ),
         "precio_entrada": cand.get("entry_modalidad_B_CE50", 0.0) if semaforo != "ROJO" else 0.0,
@@ -676,6 +645,100 @@ def validate_with_gemini(df_15m: pd.DataFrame, df_1h: pd.DataFrame, analysis: di
         "dol_objetivo_precio": dol_lvl,
         "dol_etiqueta": "Liquidez 1H",
         "invalidacion_temprana": f"Cierre de vela 15m más allá de {cand.get('invalidation_level', 'N/A')}",
+    }
+
+
+def validate_batch_with_gemini(candidates: list[dict]) -> dict[str, dict]:
+    """Envía TODOS los activos candidatos en 1 SOLA llamada HTTP a Gemini."""
+    sections = []
+    for item in candidates:
+        analysis = item["analysis"]
+        sym = analysis["symbol"]
+        dec = analysis["decimals"]
+        csv_15m = item["df_15m"].tail(18).round(dec).to_csv()
+        csv_1h = item["df_1h"].tail(10).round(dec).to_csv()
+        sections.append(
+            f"=== ACTIVO: {sym} ===\n"
+            f"PRE-CALCULO:\n{json.dumps(analysis, ensure_ascii=False)}\n"
+            f"VELAS 1H (CSV):\n{csv_1h}"
+            f"VELAS 15m (CSV):\n{csv_15m}"
+        )
+
+    user_prompt = (
+        "Evalúa en lote los siguientes activos y devuelve un único JSON con una clave por cada símbolo:\n\n"
+        + "\n\n".join(sections)
+    )
+
+    models_to_try = get_available_models()
+    last_error = "Sin respuesta"
+
+    for model_name in models_to_try:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={GEMINI_API_KEY}"
+        is_gemma = model_name.startswith("gemma")
+
+        if is_gemma:
+            payload = {
+                "contents": [{"parts": [{"text": TRADER_SENIOR_PROMPT + "\n\n" + user_prompt}]}],
+                "generationConfig": {"temperature": 0.1},
+            }
+        else:
+            payload = {
+                "systemInstruction": {"parts": [{"text": TRADER_SENIOR_PROMPT}]},
+                "contents": [{"parts": [{"text": user_prompt}]}],
+                "generationConfig": {
+                    "responseMimeType": "application/json",
+                    "temperature": 0.1,
+                    "thinkingConfig": {"thinkingBudget": 0},
+                },
+            }
+
+        for attempt in range(1):
+            try:
+                log.info("Consultando %s en lote único para %d activo(s)...", model_name, len(candidates))
+                resp = requests.post(url, json=payload, timeout=25)
+                if resp.status_code == 400 and "thinkingConfig" in resp.text:
+                    payload["generationConfig"].pop("thinkingConfig", None)
+                    resp = requests.post(url, json=payload, timeout=25)
+
+                if resp.status_code in (429, 503):
+                    last_error = f"HTTP {resp.status_code} en {model_name}"
+                    log.warning("%s saturado (%s), esperando respaldo...", model_name, resp.status_code)
+                    break
+                    continue
+
+                if not resp.ok:
+                    last_error = f"HTTP {resp.status_code}: {resp.text[:160]}"
+                    break
+
+                raw_text = resp.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+                if raw_text.startswith("```"):
+                    raw_text = raw_text.strip("`").removeprefix("json").strip()
+                parsed = json.loads(raw_text)
+                log.info("Análisis batch recibido exitosamente desde %s.", model_name)
+                if isinstance(parsed, list):
+                    norm = {}
+                    for el in parsed:
+                        if isinstance(el, dict):
+                            if 'semaforo' in el:
+                                k = str(el.get('symbol') or el.get('SYMBOL') or el.get('activo') or '').upper()
+                                if k: norm[k] = el
+                            else:
+                                for k, v in el.items():
+                                    if isinstance(v, dict): norm[str(k).upper()] = v
+                    if not norm and len(parsed) == len(candidates):
+                        norm = {c['analysis']['symbol']: p for c, p in zip(candidates, parsed) if isinstance(p, dict)}
+                    parsed = norm
+                elif isinstance(parsed, dict) and 'semaforo' in parsed and len(candidates) == 1:
+                    parsed = {candidates[0]['analysis']['symbol']: parsed}
+                return {str(k).upper(): v for k, v in parsed.items() if isinstance(v, dict)} if isinstance(parsed, dict) else {}
+            except Exception as exc:
+                last_error = str(exc)
+                time.sleep(1)
+
+    log.warning("API Gemini no disponible (%s). Usando respaldo determinístico local.", last_error)
+    return {
+        item["analysis"]["symbol"]: build_local_verdict(item["analysis"], reason="Respaldo local")
+        for item in candidates
     }
 
 
@@ -747,14 +810,12 @@ def generate_setup_chart(df_15m: pd.DataFrame, analysis: dict, verdict: dict) ->
         y=0.96,
     )
 
-    # 1. Equilibrio 50% HTF (4H)
     eq = analysis["htf_dealing_range_4h"]["equilibrium_50"]
     if ymin <= eq <= ymax:
         ax.axhline(eq, color="#90a4ae", linestyle="-.", linewidth=0.9, alpha=0.65)
         ax.text(0.5, eq + y_span * 0.008, f"Equilibrio 50% 4H ({zona_es}): {format(eq, fmt)}",
                 color="#b0bec5", fontsize=7.5, va="bottom")
 
-    # 2. FVG recientes naciendo en su vela exacta
     for fvg in analysis.get("recent_fvgs_15m", [])[-3:]:
         f_top, f_bot = fvg["top"], fvg["bottom"]
         if f_top <= f_bot:
@@ -774,7 +835,6 @@ def generate_setup_chart(df_15m: pd.DataFrame, analysis: dict, verdict: dict) ->
                                alpha=0.14, edgecolor=color_fvg, linestyle=":", linewidth=0.9))
         ax.text(start_x + 0.3, f_top, label_fvg, color=color_fvg, fontsize=7.5, alpha=0.9, va="bottom")
 
-    # 3. Anotaciones institucionales para AMARILLO y VERDE
     dol_note = ""
     if semaforo in ("VERDE", "AMARILLO"):
         sweep_info = analysis.get("sweep_analysis_arjo") or {}
@@ -964,9 +1024,9 @@ def send_telegram_alert(df_15m: pd.DataFrame, analysis: dict, verdict: dict) -> 
 
 
 # ==============================================================================
-# 8. ORQUESTADOR PARALELO MULTI-ACTIVO
+# 8. ORQUESTADOR PARALELO MULTI-ACTIVO CON PRE-FILTRO INTELIGENTE
 # ==============================================================================
-def scan_single_asset(symbol_name: str, force_test: bool, mt5_cache: dict) -> dict | None:
+def scan_single_asset(symbol_name: str, force_ai: bool, mt5_cache: dict) -> dict | None:
     asset_cfg = ASSETS_CATALOG.get(symbol_name)
     if not asset_cfg:
         log.warning("Activo %s no definido en ASSETS_CATALOG.", symbol_name)
@@ -991,16 +1051,17 @@ def scan_single_asset(symbol_name: str, force_test: bool, mt5_cache: dict) -> di
         analysis["ifvg_confirmed"]["type"] if analysis["ifvg_confirmed"] else "None",
     )
 
-    if not force_test:
+    if not force_ai:
         if STRICT_KILLZONE and not analysis["session"]["active_killzone"]:
             return None
-        if not analysis["sweep_analysis_arjo"] and not analysis["ifvg_confirmed"]:
+        # Solo consultar Gemini si existe un setup candidato real (Sweep válido o IFVG alineado con Prima/Descuento)
+        if not analysis["candidate_setup"]:
             return None
 
     return {"df_15m": df_15m, "df_1h": df_1h, "analysis": analysis}
 
 
-def run(force_test: bool = False, test_all: bool = False) -> None:
+def run(force_test: bool = False, test_all: bool = False, force_ai: bool = False) -> None:
     if not GEMINI_API_KEY or not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         raise ValueError("Faltan credenciales en el archivo .env (GEMINI_API_KEY / TELEGRAM_*).")
 
@@ -1016,7 +1077,7 @@ def run(force_test: bool = False, test_all: bool = False) -> None:
 
     candidates = []
     with ThreadPoolExecutor(max_workers=min(5, len(symbols_to_scan))) as executor:
-        futures = {executor.submit(scan_single_asset, sym, force_test, mt5_cache): sym for sym in symbols_to_scan}
+        futures = {executor.submit(scan_single_asset, sym, force_ai, mt5_cache): sym for sym in symbols_to_scan}
         for future in as_completed(futures):
             sym = futures[future]
             try:
@@ -1027,20 +1088,20 @@ def run(force_test: bool = False, test_all: bool = False) -> None:
                 log.error("[%s] Error durante escaneo: %s", sym, exc)
 
     if not candidates:
-        log.info("Ciclo completado: ningún activo presentó Sweep/IFVG activo en Killzone.")
+        log.info("Ciclo completado: ningún activo cumple condiciones de Killzone + Prima/Descuento + Sweep/IFVG. (0 llamadas a Gemini).")
         return
 
+    # 1 SOLA llamada Batch a Gemini para todos los activos candidatos
+    verdicts_map = validate_batch_with_gemini(candidates)
     allowed_colors = ("VERDE", "AMARILLO") if SEND_YELLOW_ALERTS else ("VERDE",)
 
     for item in candidates:
         analysis = item["analysis"]
         sym = analysis["symbol"]
         try:
-            log.info("[%s] Consultando Gemini (%s)...", sym, GEMINI_MODEL)
-            verdict = validate_with_gemini(item["df_15m"], item["df_1h"], analysis)
+            verdict = verdicts_map.get(sym) or build_local_verdict(analysis, reason="Respaldo local")
             semaforo = verdict.get("semaforo", "ROJO")
 
-            # Red de seguridad: asegurar niveles coherentes con ATR en VERDE / AMARILLO
             cand = analysis.get("candidate_setup") or {}
             if semaforo in ("VERDE", "AMARILLO") and cand:
                 if verdict.get("direccion") in (None, "", "NEUTRO"):
@@ -1086,16 +1147,9 @@ def run(force_test: bool = False, test_all: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Bot Institucional Multi-Activo Trader-Senior (15m)")
-    parser.add_argument(
-        "--test",
-        action="store_true",
-        help="Fuerza análisis del primer activo (solo envía a Telegram si sale AMARILLO o VERDE).",
-    )
-    parser.add_argument(
-        "--all",
-        action="store_true",
-        help="Combinado con --test, evalúa los 5 mercados a la vez.",
-    )
+    parser = argparse.ArgumentParser(description="Bot Institucional Multi-Activo Trader-Senior (15m Batch)")
+    parser.add_argument("--test", action="store_true", help="Modo prueba sin guardar estado de deduplicación.")
+    parser.add_argument("--all", action="store_true", help="Evalúa los 5 mercados configurados.")
+    parser.add_argument("--force-ai", action="store_true", help="Fuerza llamada Batch a Gemini aunque no haya setup.")
     args = parser.parse_args()
-    run(force_test=args.test, test_all=args.all)
+    run(force_test=args.test, test_all=args.all, force_ai=args.force_ai)
