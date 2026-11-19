@@ -1,0 +1,134 @@
+2026-11-18 23:21:30,800 [INFO] Datos cargados desde yfinance (EURUSD=X).
+2026-11-18 23:21:30,806 [INFO] Escaneo EURUSD=X @ 1.09649 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-18 23:21:30,937 [INFO] AFC is enabled with max remote calls: 10.
+2026-11-18 23:21:31,268 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent "HTTP/1.1 401 Unauthorized"
+2026-11-18 23:23:40,077 [INFO] Datos cargados desde yfinance (EURUSD=X).
+2026-11-18 23:23:40,082 [INFO] Escaneo EURUSD=X @ 1.09649 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-18 23:23:40,207 [INFO] AFC is enabled with max remote calls: 10.
+2026-11-18 23:23:40,519 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-11-18 23:25:12,161 [INFO] Datos cargados desde yfinance (EURUSD=X).
+2026-11-18 23:25:12,168 [INFO] Escaneo EURUSD=X @ 1.09649 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-18 23:25:12,291 [INFO] AFC is enabled with max remote calls: 10.
+2026-11-18 23:42:04,992 [INFO] Iniciando escaneo paralelo para: EURUSD
+2026-11-18 23:42:06,659 [INFO] [EURUSD] @ 1.09661 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-18 23:42:06,660 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-18 23:42:10,833 [ERROR] [EURUSD] Error validando/enviando señal: Error Gemini 503: {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+2026-11-18 23:43:30,511 [INFO] Iniciando escaneo paralelo para: EURUSD
+2026-11-18 23:43:32,205 [INFO] [EURUSD] @ 1.09661 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-18 23:43:32,206 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-18 23:44:15,764 [WARNING] [EURUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-18 23:44:15,765 [INFO] [EURUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-18 23:44:18,176 [INFO] [EURUSD] Reporte enviado a Telegram (ROJO).
+2026-11-18 23:44:18,305 [WARNING] findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+2026-11-18 23:44:19,999 [INFO] [EURUSD] Gráfico enviado a Telegram.
+2026-11-19 00:44:51,813 [INFO] Iniciando escaneo paralelo para: EURUSD
+2026-11-19 00:44:51,964 [INFO] [EURUSD] Velas cargadas desde MT5 (EURUSD).
+2026-11-19 00:44:51,971 [INFO] [EURUSD] @ 1.09639 | Sesión: London Killzone | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 00:44:51,971 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:45:15,443 [WARNING] [EURUSD] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:45:20,867 [WARNING] [EURUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 00:45:20,868 [INFO] [EURUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 00:45:21,780 [INFO] [EURUSD] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:45:21,903 [WARNING] findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+2026-11-19 00:45:23,932 [INFO] [EURUSD] Gráfico enviado a Telegram.
+2026-11-19 00:51:38,225 [INFO] Iniciando escaneo paralelo para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 00:51:38,274 [INFO] [EURUSD] Velas cargadas desde MT5 (EURUSD).
+2026-11-19 00:51:38,455 [INFO] [GBPUSD] Velas cargadas desde MT5 (GBPUSD).
+2026-11-19 00:51:38,642 [INFO] [USDJPY] Velas cargadas desde MT5 (USDJPY).
+2026-11-19 00:51:38,643 [WARNING] [XAUUSD] Simbolo no encontrado en Observacion del Mercado de MT5.
+2026-11-19 00:51:38,643 [WARNING] [NAS100] Simbolo no encontrado en Observacion del Mercado de MT5.
+2026-11-19 00:51:38,649 [INFO] [EURUSD] @ 1.09656 | Sesión: London Killzone | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 00:51:38,655 [INFO] [GBPUSD] @ 1.31351 | Sesión: London Killzone | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 00:51:38,673 [WARNING] [XAUUSD] Fallo MT5 (MT5 sin velas para XAUUSD (5m).), usando yfinance.
+2026-11-19 00:51:38,692 [WARNING] [NAS100] Fallo MT5 (MT5 sin velas para NAS100 (5m).), usando yfinance.
+2026-11-19 00:51:38,696 [INFO] [USDJPY] @ 159.494 | Sesión: London Killzone | Zona: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 00:51:41,647 [INFO] [NAS100] @ 27476.50 | Sesión: Asian Range / Baja Liquidez | Zona: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 00:51:41,653 [INFO] [XAUUSD] @ 3738.70 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: SSL_SWEEP | IFVG: None
+2026-11-19 00:51:41,654 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:52:06,340 [WARNING] [EURUSD] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:52:12,183 [WARNING] [EURUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 00:52:12,183 [INFO] [EURUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 00:52:13,104 [INFO] [EURUSD] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:52:13,188 [WARNING] findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+2026-11-19 00:52:15,202 [INFO] [EURUSD] Gráfico enviado a Telegram.
+2026-11-19 00:52:15,207 [INFO] [GBPUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:52:39,777 [WARNING] [GBPUSD] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:52:45,182 [WARNING] [GBPUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 00:52:45,182 [INFO] [GBPUSD] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 00:52:46,144 [INFO] [GBPUSD] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:52:48,306 [INFO] [GBPUSD] Gráfico enviado a Telegram.
+2026-11-19 00:52:48,309 [INFO] [USDJPY] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:52:54,213 [INFO] [USDJPY] Veredicto: AMARILLO (SHORT) | Filtros: 4/7
+2026-11-19 00:52:55,097 [INFO] [USDJPY] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 00:52:57,043 [INFO] [USDJPY] Gráfico enviado a Telegram.
+2026-11-19 00:52:57,043 [INFO] [NAS100] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:52:59,284 [WARNING] [NAS100] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:53:03,978 [WARNING] [NAS100] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:53:09,460 [WARNING] [NAS100] API Gemini saturada (None). Usando respaldo deterministico local.
+2026-11-19 00:53:09,460 [INFO] [NAS100] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 00:53:10,381 [INFO] [NAS100] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:53:12,257 [INFO] [NAS100] Gráfico enviado a Telegram.
+2026-11-19 00:53:12,260 [INFO] [XAUUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:53:56,838 [WARNING] [XAUUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 00:53:56,838 [INFO] [XAUUSD] Veredicto: AMARILLO (NEUTRO) | Filtros: 4/7
+2026-11-19 00:53:57,786 [INFO] [XAUUSD] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 00:53:59,523 [INFO] [XAUUSD] Gráfico enviado a Telegram.
+2026-11-19 00:57:15,670 [INFO] Iniciando escaneo paralelo para: EURUSD, GBPUSD, USDJPY, XAUUSD, NAS100
+2026-11-19 00:57:15,722 [INFO] [EURUSD] Velas cargadas desde MT5 (EURUSD).
+2026-11-19 00:57:15,728 [INFO] [GBPUSD] Velas cargadas desde MT5 (GBPUSD).
+2026-11-19 00:57:15,734 [INFO] [USDJPY] Velas cargadas desde MT5 (USDJPY).
+2026-11-19 00:57:15,735 [WARNING] [XAUUSD] Simbolo no encontrado en Observacion del Mercado de MT5.
+2026-11-19 00:57:15,735 [WARNING] [NAS100] Simbolo no encontrado en Observacion del Mercado de MT5.
+2026-11-19 00:57:15,742 [INFO] [EURUSD] @ 1.09651 | Sesión: London Killzone | Zona: DISCOUNT | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 00:57:15,746 [INFO] [GBPUSD] @ 1.31350 | Sesión: London Killzone | Zona: DISCOUNT | Sweep: BSL_SWEEP | IFVG: None
+2026-11-19 00:57:15,778 [WARNING] [XAUUSD] Fallo MT5 (MT5 sin velas para XAUUSD (5m).), usando yfinance.
+2026-11-19 00:57:15,782 [INFO] [USDJPY] @ 159.518 | Sesión: London Killzone | Zona: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 00:57:15,782 [WARNING] [NAS100] Fallo MT5 (MT5 sin velas para NAS100 (5m).), usando yfinance.
+2026-11-19 00:57:17,418 [INFO] [NAS100] @ 27493.50 | Sesión: Asian Range / Baja Liquidez | Zona: PREMIUM | Sweep: None | IFVG: None
+2026-11-19 00:57:17,426 [INFO] [XAUUSD] @ 3740.90 | Sesión: Asian Range / Baja Liquidez | Zona: DISCOUNT | Sweep: None | IFVG: None
+2026-11-19 00:57:17,426 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:58:02,018 [WARNING] [EURUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 00:58:02,018 [INFO] [EURUSD] Veredicto: AMARILLO (NEUTRO) | Filtros: 4/7
+2026-11-19 00:58:02,922 [INFO] [EURUSD] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 00:58:03,030 [WARNING] findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+2026-11-19 00:58:04,897 [INFO] [EURUSD] Gráfico enviado a Telegram.
+2026-11-19 00:58:04,899 [INFO] [GBPUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:58:27,189 [WARNING] [GBPUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 00:58:33,035 [WARNING] [GBPUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 00:58:33,036 [INFO] [GBPUSD] Veredicto: AMARILLO (NEUTRO) | Filtros: 4/7
+2026-11-19 00:58:33,962 [INFO] [GBPUSD] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 00:58:36,314 [INFO] [GBPUSD] Gráfico enviado a Telegram.
+2026-11-19 00:58:36,315 [INFO] [USDJPY] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:58:37,988 [WARNING] [USDJPY] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:58:41,129 [WARNING] [USDJPY] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:58:46,945 [WARNING] [USDJPY] API Gemini saturada (None). Usando respaldo deterministico local.
+2026-11-19 00:58:46,945 [INFO] [USDJPY] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 00:58:47,836 [INFO] [USDJPY] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:58:49,611 [INFO] [USDJPY] Gráfico enviado a Telegram.
+2026-11-19 00:58:49,612 [INFO] [NAS100] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:58:50,151 [WARNING] [NAS100] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 00:58:53,750 [WARNING] [NAS100] gemini-3.8-flash saturado (503), reintentando...
+2026-11-19 00:58:59,582 [WARNING] [NAS100] API Gemini saturada (None). Usando respaldo deterministico local.
+2026-11-19 00:58:59,582 [INFO] [NAS100] Veredicto: ROJO (NEUTRO) | Filtros: 1/7
+2026-11-19 00:59:00,455 [INFO] [NAS100] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:59:02,472 [INFO] [NAS100] Gráfico enviado a Telegram.
+2026-11-19 00:59:02,475 [INFO] [XAUUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 00:59:10,453 [INFO] [XAUUSD] Veredicto: ROJO (NEUTRO) | Filtros: 2/7
+2026-11-19 00:59:11,399 [INFO] [XAUUSD] Reporte enviado a Telegram (ROJO).
+2026-11-19 00:59:13,200 [INFO] [XAUUSD] Gráfico enviado a Telegram.
+2026-11-19 01:04:43,259 [INFO] Iniciando escaneo paralelo para: EURUSD
+2026-11-19 01:04:43,308 [INFO] [EURUSD] Velas cargadas desde MT5 (EURUSD).
+2026-11-19 01:04:43,320 [INFO] [EURUSD] @ 1.09646 | Sesión: London Killzone | Zona: DISCOUNT | Sweep: BSL_LIQUIDITY_RUN | IFVG: None
+2026-11-19 01:04:43,320 [INFO] [EURUSD] Consultando Gemini (gemini-3.8-flash)...
+2026-11-19 01:04:43,884 [WARNING] [EURUSD] gemini-3.8-flash saturado (429), reintentando...
+2026-11-19 01:05:09,125 [WARNING] [EURUSD] API Gemini saturada (HTTPSConnectionPool(host='generativelanguage.googleapis.com', port=443): Read timed out. (read timeout=20)). Usando respaldo deterministico local.
+2026-11-19 01:05:09,125 [INFO] [EURUSD] Veredicto: AMARILLO (NEUTRO) | Filtros: 4/7
+2026-11-19 01:05:10,071 [INFO] [EURUSD] Reporte enviado a Telegram (AMARILLO).
+2026-11-19 01:05:12,423 [INFO] [EURUSD] Gráfico enviado a Telegram.
